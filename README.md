@@ -1,25 +1,20 @@
 # Sony Product Listing Page Storefront
 
+Based off of the Adobe Storefront Product Listing Page [reference implementation](https://github.com/adobe/storefront-product-listing-page).
+
 ## Product Listing Page for Adobe Commerce Storefronts using Live Search
 
-The product listing page provides coverage for both search and browse (PLP) results and includes the faceting, sorting, and product card areas on the page. This is the recommended default storefront PLP provided by Live Search. It provides a search experience that is client side rendered and hosted with a decoupled architecture.
+The product listing page provides coverage for both search and browse (PLP) results and includes the faceting, sorting, and product card areas on the page. 
+This is the recommended default storefront PLP provided by Live Search. It provides a search experience that is client side rendered and hosted with a decoupled architecture.
 
-The PLP calls the catalog service which extends the Live Search productSearch query to return product view data. This allows the PLP to render additional product attributes like swatches with a single call.
+The PLP calls the catalog service which extends the Live Search productSearch query to return product view data. 
+This allows the PLP to render additional product attributes like swatches with a single call.
 
 Learn more:
 
 - Live Search https://experienceleague.adobe.com/docs/commerce-merchant-services/live-search/guide-overview.html?lang=en
 - PLP https://experienceleague.adobe.com/docs/commerce-merchant-services/live-search/live-search-storefront/plp-styling.html?lang=en
 - Catalog Service https://developer.adobe.com/commerce/webapi/graphql/schema/catalog-service/
-
-## Repo containing the Live Search PLP
-
-This repo is provided as a reference implementation only. While you’re expected to create your own customizations based on these assets, those customizations can’t be supported by Adobe.
-
-Best practices include:
-
-- forking this repo
-- periodically rebasing with develop
 
 ## Setup
 
@@ -296,23 +291,3 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
 ```
 
 For more robust examples, please see our [Examples folder](https://github.com/adobe/storefront-product-listing-page/tree/main/src/examples)
-
-## Hosting with CDN
-
-Follow the below instructions on how to host with CDN and update your Commerce store to include your new product listing page.
-
-1. In the root of this repository, install dependencies: `npm install`
-1. Create a production build of the application: `npm run build`
-1. After the previous step succeeds, it will output a `search.js` file in the `dist/` directory. This is the production-ready product listing page.
-1. Follow the instructions from your favorite frontend hosting with CDN (we use AWS S3 + Cloudfront, but there are many options to choose from) to upload the `search.js` file.
-1. The hosting platform with CDN will provide you a url where the `search.js` file will be publicly hosted for your consumption.
-1. Take the url where the `search.js` file is hosted and validate in your browser that it is working correctly by loading the url in your browser and seeing the `search.js` file returned to you.
-1. Now the Live Search extension needs to be updated to include your new url. Find the `magento-live-search` extension code in your adobe commerce code base. Locate the directory `LiveSearchProductListing`.
-1. We will be updating two files under `magento-live-search > LiveSearchProductListing`: `etc/config.xml` & `etc/csp_whitelist.xml`
-1. Changes for `etc/config.xml`: change the live search url in `<frontend_url>`to match the one you created with your hosting/CDN solution url above. See below.
-1. ![image](./config_xml.png)
-1. Changes for `etc/csp_whitelist.xml`: find all references to the live search SaaS product list page (`plp-widgets-ui.magento.ds.com`) and replace with your hosting/CDN solution url. See below.
-1. ![image](./csp_whitelist_xml.png)
-1. Those are all the required changes. Now redeploy your adobe commerce store code and see your new custom product listing page in your storefront.
-
-_The purpose of this project is to provide a dev-ready starting point for developers to implement the product listing page. The project, repo, and any accompanying assets included herein (“Assets”) are provided “as-is” for your use solely at your sole discretion, risk, and responsibility. By using these Assets, you agree Adobe will in no event be responsible for any use of the Assets, including but not limited to any customizations made thereto, by you or any third party. Adobe will not provide any support of any kind for any customizations made to the Assets by anyone._
