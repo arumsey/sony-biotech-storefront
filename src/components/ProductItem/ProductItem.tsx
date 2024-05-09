@@ -228,20 +228,22 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
                 {productView.sku !== null && htmlStringDecode(productView.sku)}
               </div>
           </td>
+        {accountType !== 'shopping' && (
           <td>
-            <ProductPrice
-              item={refinedProduct ?? item}
-              isBundle={isBundle}
-              isGrouped={isGrouped}
-              isGiftCard={isGiftCard}
-              isConfigurable={isConfigurable}
-              isComplexProductView={isComplexProductView}
-              discount={false}
-              currencySymbol={currencySymbol}
-              currencyRate={currencyRate}
-            />
+              <ProductPrice
+                item={refinedProduct ?? item}
+                isBundle={isBundle}
+                isGrouped={isGrouped}
+                isGiftCard={isGiftCard}
+                isConfigurable={isConfigurable}
+                isComplexProductView={isComplexProductView}
+                discount={false}
+                currencySymbol={currencySymbol}
+                currencyRate={currencyRate}
+              />
           </td>
-          <td>
+        )}
+        <td>
             <div className="w-[50px] h-[38px]">
               <AddToCartButton variant={accountType === 'shopping' ? 'list' : 'cart'} onClick={handleAddToCart} />
             </div>
