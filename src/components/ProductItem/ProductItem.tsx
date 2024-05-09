@@ -76,7 +76,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
       imageBaseWidth,
       imageCarousel,
       listView,
-      isSignedIn,
+      accountType,
     },
   } = useStore();
 
@@ -243,7 +243,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
           </td>
           <td>
             <div className="w-[50px] h-[38px]">
-              <AddToCartButton variant={isSignedIn ? 'list' : 'cart'} onClick={handleAddToCart} />
+              <AddToCartButton variant={accountType === 'shopping' ? 'list' : 'cart'} onClick={handleAddToCart} />
             </div>
           </td>
       </tr>

@@ -13,8 +13,8 @@ import { Product, RefinedProduct } from '../types/interface';
 
 const getProductPrice = (
   product: Product | RefinedProduct,
-  currencySymbol: string,
-  currencyRate: string | undefined,
+  currencySymbol?: string,
+  currencyRate?: string,
   useMaximum = false,
   useFinal = false
 ): string => {

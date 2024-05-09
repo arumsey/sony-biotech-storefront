@@ -50,7 +50,7 @@ export interface StoreDetailsConfig {
   imageCarousel?: boolean;
   optimizeImages?: boolean;
   imageBaseWidth?: number;
-  isSignedIn?: boolean;
+  accountType?: "purchasing" | "shopping";
   route?: RedirectRouteFunc; // optional product redirect func prop
   resolveCartId?: () => Promise<string | undefined>;
   refreshCart?: () => void;
