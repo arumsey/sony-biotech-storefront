@@ -76,7 +76,8 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
       imageBaseWidth,
       imageCarousel,
       listView,
-      isSignedIn,
+      accountType,
+      displayPricing,
     },
   } = useStore();
 
@@ -228,8 +229,9 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
                 {productView.sku !== null && htmlStringDecode(productView.sku)}
               </div>
           </td>
+          {displayPricing && (
           <td>
-            <ProductPrice
+              <ProductPrice
               item={refinedProduct ?? item}
               isBundle={isBundle}
               isGrouped={isGrouped}
@@ -241,11 +243,14 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
               currencyRate={currencyRate}
             />
           </td>
+          )}
+        {displayPricing && (
           <td>
             <div className="w-[50px] h-[38px]">
-              <AddToCartButton variant={isSignedIn ? 'list' : 'cart'} onClick={handleAddToCart} />
+              <AddToCartButton variant={accountType === 'purchasing' ? 'cart' : 'list'} onClick={handleAddToCart} />
             </div>
           </td>
+        )}
       </tr>
     );
   }
@@ -253,9 +258,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
   return (
     <div
       className="ds-sdk-product-item group relative flex flex-col max-w-sm justify-between h-full hover:border-[1.5px] border-solid hover:shadow-lg border-offset-2 p-2"
-      style={{
-        'border-color': '#D5D5D5',
-      }}
+      style={{borderColor: '#D5D5D5'}}
       onMouseEnter={handleMouseOver}
       onMouseLeave={handleMouseOut}
     >
@@ -301,7 +304,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
               />
             </div>
 
-            {/* 
+            {/*
             //TODO: Wishlist button to be added later
             {flags.addToWishlist && widgetConfig.addToWishlist.enabled && (
               // TODO: Remove flag during phase 3 MSRCH-4278

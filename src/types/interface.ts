@@ -43,6 +43,7 @@ export interface StoreDetailsConfig {
   headerViews: Array<'search' | 'switch' | 'sort'>;
   displaySearchBox?: boolean;
   displayOutOfStock?: string | boolean; // "1" will return from php escapeJs and boolean is returned if called from data-service-graphql
+  displayPricing?: boolean;
   displayMode?: string;
   listView?: boolean;
   locale?: string;
@@ -50,7 +51,7 @@ export interface StoreDetailsConfig {
   imageCarousel?: boolean;
   optimizeImages?: boolean;
   imageBaseWidth?: number;
-  isSignedIn?: boolean;
+  accountType?: 'purchasing' | 'shopping';
   route?: RedirectRouteFunc; // optional product redirect func prop
   resolveCartId?: () => Promise<string | undefined>;
   refreshCart?: () => void;

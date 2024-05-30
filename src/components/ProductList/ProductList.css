@@ -8,6 +8,10 @@ table.grid-table {
   font-size: 12px;
 }
 
+table.grid-table.condensed {
+  grid-template-columns: 1.5fr 1fr 1fr;
+}
+
 .grid-table thead,
 .grid-table tbody,
 .grid-table tr {

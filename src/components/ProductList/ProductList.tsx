@@ -47,7 +47,7 @@ export const ProductList: FunctionComponent<ProductListProps> = ({
   const { viewType } = useProducts();
   const [error, setError] = useState<boolean>(false);
   const {
-    config: { listView },
+    config: { listView, displayPricing },
   } = useStore();
 
   const className = showFilters
@@ -124,14 +124,14 @@ export const ProductList: FunctionComponent<ProductListProps> = ({
                   )}
                   {isGroupedProducts(products) && <a href={viewMoreUrl.toString()} className='text-xxs text-white bg-primary rounded p-[4px]'>View more&nbsp;→</a>}
                 </div>
-                <table className="grid-table">
+                <table className={`grid-table ${!displayPricing ? 'condensed' : ''}`}>
                   <thead>
                     <tr>
                       <th>Description</th>
                       <th>Size</th>
                       <th>Cat. No.</th>
-                      <th>Price</th>
-                      <th>&nbsp;</th>
+                      {displayPricing && (<th>Price</th>)}
+                      {displayPricing && (<th>&nbsp;</th>)}
                     </tr>
                   </thead>
                   <tbody>
