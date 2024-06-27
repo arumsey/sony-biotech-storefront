@@ -42,7 +42,7 @@ export interface ProductProps {
   setError: (error: boolean) => void;
   addToCart?: (
     sku: string,
-    options: [],
+    options: string[],
     quantity: number
   ) => Promise<void | undefined>;
 }
@@ -156,12 +156,12 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
 
   const productSize = productView?.attributes?.find((attr) => attr.name === 'size');
 
-  const handleAddToCart = async () => {
+  const handleAddToCart = async (type: string = 'cart') => {
     setError(false);
     if (isSimple) {
       if (addToCart) {
         //Custom add to cart function passed in
-        await addToCart(productView.sku, [], 1);
+        await addToCart(productView.sku, [type], 1);
       } else {
         // Add to cart using GraphQL & Luma extension
         const response = await addToCartGraphQL(productView.sku);
@@ -244,13 +244,18 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
             />
           </td>
           )}
-        {displayPricing && (
           <td>
-            <div className="w-[50px] h-[38px]">
-              <AddToCartButton variant={accountType === 'purchasing' ? 'cart' : 'list'} onClick={handleAddToCart} />
+            <div className="ds-sdk-product-item__cart w-[100%h-[38px]">
+              {accountType === undefined && (<AddToCartButton variant="cart" onClick={() => handleAddToCart()} />)}
+              {accountType === 'shopping' && (<AddToCartButton variant="list" onClick={() => handleAddToCart('list')} />)}
+              {accountType === 'purchasing' && (
+                <>
+                  <AddToCartButton variant="cart" onClick={() => handleAddToCart()} />
+                  <AddToCartButton variant="list" onClick={() => handleAddToCart('list')} />
+                </>
+              )}
             </div>
           </td>
-        )}
       </tr>
     );
   }
@@ -338,9 +343,9 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
         </div>
       )}
         <div className="pb-4 mt-sm">
-          {screenSize.mobile && <AddToCartButton onClick={handleAddToCart} />}
+          {screenSize.mobile && <AddToCartButton onClick={() => handleAddToCart()} />}
           {isHovering && screenSize.desktop && (
-            <AddToCartButton onClick={handleAddToCart} />
+            <AddToCartButton onClick={() => handleAddToCart()} />
           )}
         </div>
     </div>

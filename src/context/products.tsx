@@ -82,7 +82,7 @@ type ProductsContextType = {
   refreshCart?: () => void;
   addToCart?: (
     sku: string,
-    options: [],
+    options: string[],
     quantity: number
   ) => Promise<void | undefined>;
   cartId?: () => Promise<string | undefined>;

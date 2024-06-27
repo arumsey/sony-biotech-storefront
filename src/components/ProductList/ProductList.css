@@ -44,3 +44,8 @@ table.grid-table.condensed {
   justify-content: space-around;
 }
 
+.grid-table td .ds-sdk-product-item__cart {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

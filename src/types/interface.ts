@@ -57,7 +57,7 @@ export interface StoreDetailsConfig {
   refreshCart?: () => void;
   addToCart?: (
     sku: string,
-    options: [],
+    options: string[],
     quantity: number
   ) => Promise<void | undefined>;
   onCategoryChange?: (category: Category) => void;
