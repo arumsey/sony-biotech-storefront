@@ -151,7 +151,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
   };
 
   const productUrl = setRoute
-    ? setRoute({ sku: productView?.sku, urlKey: productView?.urlKey })
+    ? setRoute({ sku: productView?.sku, urlKey: productView?.urlKey, url: productView?.url })
     : product?.canonical_url;
 
   const productSize = productView?.attributes?.find((attr) => attr.name === 'size');

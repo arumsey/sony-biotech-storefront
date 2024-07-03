@@ -73,9 +73,11 @@ export type BucketTypename =
 export type RedirectRouteFunc = ({
   sku,
   urlKey,
+  url,
 }: {
   sku: string;
   urlKey: null | string;
+  url: null | string;
 }) => string;
 
 export interface MagentoHeaders {
