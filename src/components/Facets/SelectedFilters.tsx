@@ -9,7 +9,7 @@ it.
 
 import { Fragment, FunctionComponent } from 'preact';
 
-import { useProducts, useSearch, useTranslation } from '../../context';
+import { useCategories, useProducts, useSearch, useTranslation } from '../../context';
 import Pill from '../Pill';
 import { formatBinaryLabel, formatRangeLabel } from './format';
 
@@ -21,6 +21,14 @@ export const SelectedFilters: FunctionComponent<SelectedFiltersProps> = ({ direc
   const searchCtx = useSearch();
   const productsCtx = useProducts();
   const translation = useTranslation();
+  const { categories }  = useCategories();
+
+  const additionalCategoryNames = categories?.map(({ name, urlPath }) => ({
+    name,
+    value: urlPath,
+    attribute: 'categories'
+  }));
+  const allCategoryNames = [...searchCtx.categoryNames, ...additionalCategoryNames];
 
   return (
     <div className="w-full">
@@ -33,13 +41,13 @@ export const SelectedFilters: FunctionComponent<SelectedFiltersProps> = ({ direc
                   key={formatBinaryLabel(
                     filter,
                     option,
-                    searchCtx.categoryNames,
+                    allCategoryNames as any,
                     productsCtx.categoryPath
                   )}
                   label={formatBinaryLabel(
                     filter,
                     option,
-                    searchCtx.categoryNames,
+                    allCategoryNames as any,
                     productsCtx.categoryPath
                   )}
                   type="transparent"

@@ -39,7 +39,7 @@ const formatBinaryLabel = (
   categoryNames?: { value: string; name: string; attribute: string }[],
   categoryPath?: string
 ) => {
-  if (categoryPath && categoryNames) {
+  if (categoryNames) {
     const category = categoryNames.find(
       (facet) => facet.attribute === filter.attribute && facet.value === option
     );
