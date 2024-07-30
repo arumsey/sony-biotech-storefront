@@ -246,7 +246,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
           )}
           <td>
             <div className="ds-sdk-product-item__cart w-[100%h-[38px]">
-              {accountType === undefined && (<AddToCartButton variant="cart" onClick={() => handleAddToCart()} />)}
+              {!accountType && (<AddToCartButton variant="cart" onClick={() => handleAddToCart()} />)}
               {accountType === 'shopping' && (<AddToCartButton variant="list" onClick={() => handleAddToCart('list')} />)}
               {accountType === 'purchasing' && (
                 <>
