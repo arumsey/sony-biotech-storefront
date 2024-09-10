@@ -10,7 +10,7 @@ it.
 export const en_US = {
   Filter: {
     title: 'Filters',
-    showTitle: 'Show filters',
+    showTitle: 'Shop By',
     hideTitle: 'Hide filters',
     clearAll: 'Clear all',
   },

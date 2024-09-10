@@ -97,8 +97,3 @@
   transform: translate(-50%, -50%);
 }
 
-.ds-widgets button:hover,
-.ds-widgets button:focus {
-  background-color: transparent;
-}
-

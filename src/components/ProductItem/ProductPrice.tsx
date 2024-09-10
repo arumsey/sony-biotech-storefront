@@ -90,19 +90,25 @@ export const ProductPrice: FunctionComponent<ProductPriceProps> = ({
     );
   };
 
-  const getDiscountedPrice = (discount: boolean | undefined) => {
-    const discountPrice = discount ? (
-      <>
+  const getDiscountedPrice = (discount: boolean | undefined, configurable: boolean) => {
+    const regularPrice = getProductPrice(item, currencySymbol, currencyRate, false, false);
+    const finalPrice = getProductPrice(item, currencySymbol, currencyRate, false, true);
+    const showDiscount = discount && regularPrice !== finalPrice;
+    const discountPrice = showDiscount ? (
+      <div className="flex flex-col gap-1">
         <span className="line-through pr-2">
-          {getProductPrice(item, currencySymbol, currencyRate, false, false)}
+          {regularPrice}
         </span>
-        <span className="text-secondary">
-          {getProductPrice(item, currencySymbol, currencyRate, false, true)}
+        <span>
+          {finalPrice}
         </span>
-      </>
+      </div>
     ) : (
-      getProductPrice(item, currencySymbol, currencyRate, false, true)
+      regularPrice
     );
+    if (!configurable) {
+      return discountPrice;
+    }
     const discountedPriceTranslation = translation.ProductCard.asLowAs;
     const discountedPriceTranslationOrder =
       discountedPriceTranslation.split('{discountPrice}');
@@ -127,24 +133,7 @@ export const ProductPrice: FunctionComponent<ProductPriceProps> = ({
             !isComplexProductView &&
             discount && (
               <p className="ds-sdk-product-price--discount mt-xs text-sm text-gray-900 my-auto">
-                <span className="line-through pr-2">
-                  {getProductPrice(
-                    item,
-                    currencySymbol,
-                    currencyRate,
-                    false,
-                    false
-                  )}
-                </span>
-                <span className="text-secondary">
-                  {getProductPrice(
-                    item,
-                    currencySymbol,
-                    currencyRate,
-                    false,
-                    true
-                  )}
-                </span>
+                {getDiscountedPrice(discount, false)}
               </p>
             )}
 
@@ -189,7 +178,7 @@ export const ProductPrice: FunctionComponent<ProductPriceProps> = ({
             !isBundle &&
             (isConfigurable || isComplexProductView) && (
               <p className="ds-sdk-product-price--configurable mt-xs text-sm font-medium text-gray-900 my-auto">
-                {getDiscountedPrice(discount)}
+                {getDiscountedPrice(discount, true)}
               </p>
             )}
         </div>

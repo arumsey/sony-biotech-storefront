@@ -108,6 +108,7 @@ export const ProductsContainer: FunctionComponent<Props> = ({
 
   if (!totalCount) {
     if (isCategory) {
+      // @ts-ignore
       import(/* webpackIgnore: true */ '/scripts/scripts.js').then(({ renderErrorPage }) => {
         renderErrorPage('404');
       });

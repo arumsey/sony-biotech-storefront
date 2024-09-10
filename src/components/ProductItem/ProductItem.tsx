@@ -78,6 +78,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
       listView,
       accountType,
       displayPricing,
+      wishlists,
     },
   } = useStore();
 
@@ -156,12 +157,12 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
 
   const productSize = productView?.attributes?.find((attr) => attr.name === 'size');
 
-  const handleAddToCart = async (type: string = 'cart') => {
+  const handleAddToCart = async (options: string[] = ['cart']) => {
     setError(false);
     if (isSimple) {
       if (addToCart) {
         //Custom add to cart function passed in
-        await addToCart(productView.sku, [type], 1);
+        await addToCart(productView.sku, [...options, productView.name], 1);
       } else {
         // Add to cart using GraphQL & Luma extension
         const response = await addToCartGraphQL(productView.sku);
@@ -238,7 +239,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
               isGiftCard={isGiftCard}
               isConfigurable={isConfigurable}
               isComplexProductView={isComplexProductView}
-              discount={false}
+              discount={true}
               currencySymbol={currencySymbol}
               currencyRate={currencyRate}
             />
@@ -247,11 +248,11 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
           <td>
             <div className="ds-sdk-product-item__cart w-[100%h-[38px]">
               {!accountType && (<AddToCartButton variant="cart" onClick={() => handleAddToCart()} />)}
-              {accountType === 'shopping' && (<AddToCartButton variant="list" onClick={() => handleAddToCart('list')} />)}
+              {accountType === 'shopping' && (<AddToCartButton variant="list" popoverData={wishlists} onClick={(id) => handleAddToCart(['list', id || ''])} />)}
               {accountType === 'purchasing' && (
                 <>
                   <AddToCartButton variant="cart" onClick={() => handleAddToCart()} />
-                  <AddToCartButton variant="list" onClick={() => handleAddToCart('list')} />
+                  <AddToCartButton variant="list" popoverData={wishlists} onClick={(id) => handleAddToCart(['list', id || ''])} />
                 </>
               )}
             </div>

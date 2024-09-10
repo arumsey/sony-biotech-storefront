@@ -41,14 +41,12 @@ export const SelectedFilters: FunctionComponent<SelectedFiltersProps> = ({ direc
                   key={formatBinaryLabel(
                     filter,
                     option,
-                    allCategoryNames as any,
-                    productsCtx.categoryPath
+                    allCategoryNames as any
                   )}
                   label={formatBinaryLabel(
                     filter,
                     option,
-                    allCategoryNames as any,
-                    productsCtx.categoryPath
+                    allCategoryNames as any
                   )}
                   type="transparent"
                   onClick={() => searchCtx.updateFilterOptions(filter, option)}
