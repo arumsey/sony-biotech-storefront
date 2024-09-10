@@ -52,6 +52,7 @@ export interface StoreDetailsConfig {
   optimizeImages?: boolean;
   imageBaseWidth?: number;
   accountType?: 'purchasing' | 'shopping';
+  wishlists?: Array<{id: string, name: string}>;
   route?: RedirectRouteFunc; // optional product redirect func prop
   resolveCartId?: () => Promise<string | undefined>;
   refreshCart?: () => void;

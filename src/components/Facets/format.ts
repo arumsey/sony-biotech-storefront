@@ -37,7 +37,6 @@ const formatBinaryLabel = (
   filter: FacetFilter,
   option: string,
   categoryNames?: { value: string; name: string; attribute: string }[],
-  categoryPath?: string
 ) => {
   if (categoryNames) {
     const category = categoryNames.find(

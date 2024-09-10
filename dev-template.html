@@ -58,12 +58,12 @@
   <script type="text/javascript">
     const root = document.querySelector('div.search-plp-root');
     const storeDetails = {
-      apiUrl: 'https://aemstage.sonybiotechnology.com/cs-graphql',
-      environmentId: '7dbfa0d8-8e6f-4abf-b932-4c2bee19d067',
+      apiUrl: 'https://catalog-service-sandbox.adobe.io/graphql',
+      environmentId: '4a2e9817-ea53-4a4c-8b6a-477efafaf33a\n',
       websiteCode: 'us',
       storeCode: 'us',
       storeViewCode: 'us',
-      apiKey: 'b06dd0204a474eacb8afcc5e5965587c',
+      apiKey: '51c16eefd73a465391997900ed0c124c',
       config: {
         pageSize: 10,
         perPageConfig: {
@@ -95,6 +95,16 @@
         optimizeImages: false, // optimize images with Fastly
         imageBaseWidth: 50,
         accountType: 'shopping',
+        wishlists: [
+            {
+                id: '1',
+                name: 'Wishlist 1',
+            },
+            {
+                id: '2',
+                name: 'Wishlist 2',
+            },
+        ],
         // resolveCartId?: resolveCartId, // Luma specific addToCart method. Enabled with the extension
         // refreshCart?: refreshCart, // Luma specific addToCart method. Enabled with the extension
         // addToCart?: (sku, options, quantity)=>{} // custom add to cart callback function. Called on addToCart action
@@ -104,7 +114,7 @@
         },
       },
       context: {
-        customerGroup: '1',
+        customerGroup: '827bfc458708f0b442009c9c9836f7e4b65557fb',
       },
       environmentType: '',
       // searchQuery: 'search_query', // Optional: providing searchQuery will override 'q' query param
