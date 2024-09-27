@@ -115,6 +115,9 @@ const commonConfig = {
   plugins: [
     new webpack.BannerPlugin(banner),
   ],
+  externals: {
+    '/blocks/product-details/wishlist-selector.js': '/blocks/product-details/wishlist-selector.js'
+  },
   optimization: {
     minimizer: [
       new TerserPlugin({

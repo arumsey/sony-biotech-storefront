@@ -151,6 +151,14 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
     });
   };
 
+  const openCreateListPopup = async (e: Event) => {
+    e.preventDefault();
+    // @ts-ignore ignore external import (declared in webpack.common.js)
+    const {default: renderModal} = await import('/blocks/product-details/wishlist-selector.js');
+    const modal = renderModal(document.body, item.productView.sku, item.productView.name);
+    modal.showModal();
+  }
+
   const productUrl = setRoute
     ? setRoute({ sku: productView?.sku, urlKey: productView?.urlKey, url: productView?.url })
     : product?.canonical_url;
@@ -252,7 +260,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
               {accountType === 'purchasing' && (
                 <>
                   <AddToCartButton variant="cart" onClick={() => handleAddToCart()} />
-                  <AddToCartButton variant="list" popoverData={wishlists} onClick={(id) => handleAddToCart(['list', id || ''])} />
+                  <AddToCartButton variant="list" popoverData={wishlists} onClick={(id) => handleAddToCart(['list', id || ''])} openCreateListPopup={openCreateListPopup} />
                 </>
               )}
             </div>
