@@ -23,7 +23,7 @@ export const AddToCartButton: FunctionComponent<AddToCartButtonProps> = ({
   variant = 'cart',
   onClick,
   popoverData = [],
-  openCreateListPopup,
+  openCreateListPopup = () => undefined,
 }: AddToCartButtonProps) => {
   const [isPopoverOpen, setPopoverOpen] = useState(false);
   const popoverRef = useRef<HTMLDivElement>(null);
