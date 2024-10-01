@@ -10,13 +10,14 @@ it.
 import { FunctionComponent } from 'preact';
 import CartIcon from '../../icons/cart.svg';
 import ListIcon from '../../icons/shoppinglist.svg';
-import {useState, useRef, useEffect} from 'react';
+import {useState, useRef, useEffect, MouseEventHandler} from 'react';
+import {JSXInternal} from 'preact/src/jsx';
 
 export interface AddToCartButtonProps {
   variant?: 'cart' | 'list',
   onClick: (wishlist?: string) => void;
   popoverData?: Array<{id: string, name: string;}>;
-  openCreateListPopup?: (e: Event) => void;
+  openCreateListPopup?: () => void;
 }
 
 export const AddToCartButton: FunctionComponent<AddToCartButtonProps> = ({
@@ -37,6 +38,11 @@ export const AddToCartButton: FunctionComponent<AddToCartButtonProps> = ({
     } else {
       onClick(wishlist);
     }
+  }
+
+  const handleCreateNewClick = (event: Event) => {
+    event.preventDefault();
+    openCreateListPopup();
   }
 
   // Close the popover if clicking outside
@@ -80,7 +86,7 @@ export const AddToCartButton: FunctionComponent<AddToCartButtonProps> = ({
               </a>
             ))}
             <a
-              onClick={openCreateListPopup}
+              onClick={handleCreateNewClick}
               className="block px-4 py-2 text-sm text-blue-600 hover:bg-gray-100"
             >
               + Create New Shopping List

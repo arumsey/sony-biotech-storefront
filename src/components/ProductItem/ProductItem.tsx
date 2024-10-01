@@ -151,8 +151,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
     });
   };
 
-  const openCreateListPopup = async (e: Event) => {
-    e.preventDefault();
+  const openCreateListPopup = async () => {
     // @ts-ignore ignore external import (declared in webpack.common.js)
     const {default: renderModal} = await import('/blocks/product-details/wishlist-selector.js');
     const modal = renderModal(document.body, item.productView.sku, item.productView.name);
@@ -256,11 +255,18 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
           <td>
             <div className="ds-sdk-product-item__cart w-[100%h-[38px]">
               {!accountType && (<AddToCartButton variant="cart" onClick={() => handleAddToCart()} />)}
-              {accountType === 'shopping' && (<AddToCartButton variant="list" popoverData={wishlists} onClick={(id) => handleAddToCart(['list', id || ''])} />)}
+              {accountType === 'shopping' && (<AddToCartButton
+                variant="list"
+                popoverData={wishlists}
+                onClick={(id) => handleAddToCart(['list', id || ''])} />)}
               {accountType === 'purchasing' && (
                 <>
                   <AddToCartButton variant="cart" onClick={() => handleAddToCart()} />
-                  <AddToCartButton variant="list" popoverData={wishlists} onClick={(id) => handleAddToCart(['list', id || ''])} openCreateListPopup={openCreateListPopup} />
+                  <AddToCartButton
+                    variant="list"
+                    popoverData={wishlists}
+                    onClick={(id) => handleAddToCart(['list', id || ''])}
+                    openCreateListPopup={openCreateListPopup} />
                 </>
               )}
             </div>
