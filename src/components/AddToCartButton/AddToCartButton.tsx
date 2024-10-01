@@ -16,12 +16,14 @@ export interface AddToCartButtonProps {
   variant?: 'cart' | 'list',
   onClick: (wishlist?: string) => void;
   popoverData?: Array<{id: string, name: string;}>;
+  openCreateListPopup?: (e: Event) => void;
 }
 
 export const AddToCartButton: FunctionComponent<AddToCartButtonProps> = ({
   variant = 'cart',
   onClick,
   popoverData = [],
+  openCreateListPopup = () => undefined,
 }: AddToCartButtonProps) => {
   const [isPopoverOpen, setPopoverOpen] = useState(false);
   const popoverRef = useRef<HTMLDivElement>(null);
@@ -78,7 +80,7 @@ export const AddToCartButton: FunctionComponent<AddToCartButtonProps> = ({
               </a>
             ))}
             <a
-              href="/"
+              onClick={openCreateListPopup}
               className="block px-4 py-2 text-sm text-blue-600 hover:bg-gray-100"
             >
               + Create New Shopping List
