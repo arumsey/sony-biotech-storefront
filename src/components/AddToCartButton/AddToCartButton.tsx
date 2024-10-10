@@ -79,7 +79,7 @@ export const AddToCartButton: FunctionComponent<AddToCartButtonProps> = ({
             {popoverData.map(({id, name}) => (
               <a
                 key={id}
-                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
                 onClick={() => handleClick(id)}
               >
                 {name}
@@ -87,7 +87,7 @@ export const AddToCartButton: FunctionComponent<AddToCartButtonProps> = ({
             ))}
             <a
               onClick={handleCreateNewClick}
-              className="block px-4 py-2 text-sm text-blue-600 hover:bg-gray-100"
+              className="block px-4 py-2 text-sm text-blue-600 hover:bg-gray-100 cursor-pointer"
             >
               + Create New Shopping List
             </a>
