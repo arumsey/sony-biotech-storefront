@@ -101,7 +101,6 @@ const SearchProvider: FunctionComponent = ({ children }) => {
     const newFilters = [...filters].filter(
       (e) => e.attribute !== facetFilter.attribute
     );
-    console.log(categoryNames);
     const optionCategory = categoryNames.find((name) => name.value === option);
     const allOptions = optionCategory ? categoryNames
       .filter((c) => c.name === optionCategory.name)
