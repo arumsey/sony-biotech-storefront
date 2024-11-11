@@ -196,14 +196,14 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
       <tr>
           <td>
             <div className="flex flex-row gap-[10px] items-center">
-              <a
-                href={productUrl as string}
-                onClick={onProductClick}
-                className="!text-primary hover:no-underline hover:text-primary w-[50px]"
-                aria-label={product.name}
-              >
-                {/* Thumbnail */}
-                {productThumbnailUrl ? (
+              {/* Thumbnail */}
+              {productThumbnailUrl ? (
+                <a
+                  href={productUrl as string}
+                  onClick={onProductClick}
+                  className="!text-primary hover:no-underline hover:text-primary w-[50px]"
+                  aria-label={product.name}
+                >
                   <Image
                     image={
                     optimizedThumbnailArray.length
@@ -212,12 +212,12 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
                     alt={product.name}
                     size={imageBaseWidth}
                   />
+                </a>
                 ) : (
-                  <NoImage
-                    className={`max-h-[250px] max-w-[200px] pr-5 m-auto object-cover object-center lg:w-full`}
+                  <div
+                    className="w-[50px]"
                   />
                 )}
-              </a>
               <a
                 href={productUrl as string}
                 onClick={onProductClick}

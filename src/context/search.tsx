@@ -101,7 +101,12 @@ const SearchProvider: FunctionComponent = ({ children }) => {
     const newFilters = [...filters].filter(
       (e) => e.attribute !== facetFilter.attribute
     );
-    const newOptions = facetFilter.in?.filter((e) => e !== option);
+    console.log(categoryNames);
+    const optionCategory = categoryNames.find((name) => name.value === option);
+    const allOptions = optionCategory ? categoryNames
+      .filter((c) => c.name === optionCategory.name)
+      .map((c) => c.value) : [option];
+    const newOptions = facetFilter.in?.filter((e) => !allOptions.includes(e));
 
     newFilters.push({
       attribute: facetFilter.attribute,

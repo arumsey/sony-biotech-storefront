@@ -394,7 +394,7 @@ export interface CategoryView {
   __typename: 'CategoryView';
   title: string;
   name: string;
-  path: string;
+  path: string | string[];
   count: number;
 }
 
