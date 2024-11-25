@@ -9,7 +9,7 @@ table.grid-table {
 }
 
 table.grid-table.condensed {
-  grid-template-columns: 1.5fr 1fr 1fr;
+  grid-template-columns: 1.5fr 1fr 1fr auto;
 }
 
 .grid-table thead,
