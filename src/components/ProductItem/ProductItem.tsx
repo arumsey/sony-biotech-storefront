@@ -252,6 +252,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
             />
           </td>
           )}
+        {displayPricing && (
           <td>
             <div className="ds-sdk-product-item__cart w-[100%h-[38px]">
               {!accountType && (<AddToCartButton variant="cart" onClick={() => handleAddToCart()} />)}
@@ -271,6 +272,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
               )}
             </div>
           </td>
+          )}
       </tr>
     );
   }

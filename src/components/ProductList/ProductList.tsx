@@ -131,7 +131,7 @@ export const ProductList: FunctionComponent<ProductListProps> = ({
                       <th>Size</th>
                       <th>Cat. No.</th>
                       {displayPricing && (<th>Price</th>)}
-                      <th>&nbsp;</th>
+                      {displayPricing && (<th>&nbsp;</th>)}
                     </tr>
                   </thead>
                   <tbody>
