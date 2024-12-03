@@ -252,7 +252,6 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
             />
           </td>
           )}
-        {displayPricing && (
           <td>
             <div className="ds-sdk-product-item__cart w-[100%h-[38px]">
               {!accountType && (<AddToCartButton variant="cart" onClick={() => handleAddToCart()} />)}
@@ -262,7 +261,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
                 onClick={(id) => handleAddToCart(['list', id || ''])} />)}
               {accountType === 'purchasing' && (
                 <>
-                  <AddToCartButton variant="cart" onClick={() => handleAddToCart()} />
+                  {displayPricing && (<AddToCartButton variant="cart" onClick={() => handleAddToCart()} />)}
                   <AddToCartButton
                     variant="list"
                     popoverData={wishlists}
@@ -272,7 +271,6 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
               )}
             </div>
           </td>
-          )}
       </tr>
     );
   }
