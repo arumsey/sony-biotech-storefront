@@ -22,7 +22,6 @@
   },
   "dependencies": {
     "@headlessui/react": "^1.7.17",
-    "currency-symbol-map": "^5.1.0",
     "preact": "^10.18.0",
     "uuid": "^9.0.1"
   },
