@@ -25,14 +25,13 @@ export const useScalarFacet = (facet: FacetType | PriceFacet) => {
     return selected;
   };
 
-  const onChange = (value: string, selected?: boolean) => {
+  const onChange = (value: string | string[], selected?: boolean) => {
     // create filter
     if (!filter) {
       const newFilter: FacetFilter = {
         attribute: facet.attribute,
-        in: [value],
+        in: Array.isArray(value) ? [...value] : [value],
       };
-
       searchCtx.createFilter(newFilter);
       return;
     }
@@ -40,9 +39,9 @@ export const useScalarFacet = (facet: FacetType | PriceFacet) => {
     const newFilter = { ...filter };
 
     const currentFilterIn = filter.in ? filter.in : [];
-
+    const newFilterIn = Array.isArray(value) ? [...value] : [value];
     newFilter.in = selected
-      ? [...currentFilterIn, value]
+      ? [...currentFilterIn, ...newFilterIn]
       : filter.in?.filter((e: string) => e !== value);
 
     const filterUnselected = filter.in?.filter(

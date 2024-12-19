@@ -29,6 +29,7 @@ export const SelectedFilters: FunctionComponent<SelectedFiltersProps> = ({ direc
     attribute: 'categories'
   }));
   const allCategoryNames = [...searchCtx.categoryNames, ...additionalCategoryNames];
+  const usedPillLabels = new Set();
 
   return (
     <div className="w-full">
@@ -36,22 +37,32 @@ export const SelectedFilters: FunctionComponent<SelectedFiltersProps> = ({ direc
         <div className={`ds-plp-facets__pills pb-6 sm:pb-6 flex ${direction === 'horizontal' ? 'flex-row' : 'flex-col'} flex-wrap justify-start`}>
           {searchCtx.filters.map((filter) => (
             <Fragment key={filter.attribute}>
-              {filter.in?.map((option) => (
-                <Pill
-                  key={formatBinaryLabel(
-                    filter,
-                    option,
-                    allCategoryNames as any
-                  )}
-                  label={formatBinaryLabel(
-                    filter,
-                    option,
-                    allCategoryNames as any
-                  )}
-                  type="transparent"
-                  onClick={() => searchCtx.updateFilterOptions(filter, option)}
-                />
-              ))}
+              {filter.in?.map((option) => {
+                const pillLabel = formatBinaryLabel(
+                  filter,
+                  option,
+                  allCategoryNames as any
+                );
+                if (usedPillLabels.has(pillLabel)) {
+                  return null;
+                }
+                usedPillLabels.add(pillLabel);
+                return (
+                  <Pill
+                    key={formatBinaryLabel(
+                      filter,
+                      option,
+                      allCategoryNames as any
+                    )}
+                    label={formatBinaryLabel(
+                      filter,
+                      option,
+                      allCategoryNames as any
+                    )}
+                    type="transparent"
+                    onClick={() => searchCtx.updateFilterOptions(filter, option)}
+                  />
+              )})}
               {filter.range && (
                 <Pill
                   label={formatRangeLabel(

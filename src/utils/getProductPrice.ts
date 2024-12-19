@@ -7,8 +7,6 @@ accordance with the terms of the Adobe license agreement accompanying
 it.
 */
 
-import getSymbolFromCurrency from 'currency-symbol-map';
-
 import { Product, RefinedProduct } from '../types/interface';
 
 const getProductPrice = (
@@ -46,20 +44,21 @@ const getProductPrice = (
     }
   }
 
-  // if currency symbol is configurable within Commerce, that symbol is used
-  let currency = price?.currency;
-
-  if (currencySymbol) {
-    currency = currencySymbol;
-  } else {
-    currency = getSymbolFromCurrency(currency) ?? '$';
-  }
-
   const convertedPrice = currencyRate
     ? price?.value * parseFloat(currencyRate)
     : price?.value;
 
-  return convertedPrice ? `${currency}${convertedPrice.toFixed(2)}` : '';
+  if (currencySymbol) {
+    return convertedPrice ? `${currencySymbol}${convertedPrice.toFixed(2)}` : '';
+  }
+
+  // if currency symbol is configurable within Commerce, that symbol is used
+  let currency = price?.currency || 'USD';
+  const format = new Intl.NumberFormat(document.documentElement.lang || 'en', {
+    style: 'currency',
+    currency,
+  });
+  return convertedPrice ? format.format(convertedPrice) : '';
 };
 
 export { getProductPrice };

@@ -88,6 +88,33 @@ type ProductsContextType = {
   cartId?: () => Promise<string | undefined>;
 }
 
+const facetOrder = [
+  'categories',
+  'format',
+  'sonybt_product_type',
+  'clone',
+  'reactivity',
+  'cross_reactivity',
+  'application',
+  'size',
+  'isotype',
+  'brand',
+  'lasers',
+  'instrument_assignments',
+];
+
+// Sort the facets so they are in a pre-defined order
+const sortFacets = (facets: Facet[] = []) => {
+  return facets.sort((a, b) => {
+    const indexA = facetOrder.indexOf(a.attribute);
+    const indexB = facetOrder.indexOf(b.attribute);
+
+    if (indexA === -1) return 1;
+    if (indexB === -1) return -1;
+    return indexA - indexB;
+  });
+}
+
 const ProductsContext = createContext<ProductsContextType>({
   variables: {
     phrase: '',
@@ -291,14 +318,34 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
           return groups;
         }, {});
         setItems(groupedProducts);
+        // combine facets and sort
+        const combinedFacets = fulfilledData
+          .flatMap((data) => data?.productSearch?.facets || [])
+          .reduce((facetItems, facet) => {
+            const existingFacet = facetItems.find(f => f.attribute === facet.attribute);
+            if (existingFacet) {
+              const existingBucketsMap = new Map(existingFacet.buckets.map((bucket) => [bucket.title, bucket]));
+              facet.buckets.forEach((bucket) => {
+                if (!existingBucketsMap.has(bucket.title)) {
+                  existingBucketsMap.set(bucket.title, bucket);
+                }
+              });
+              existingFacet.buckets = Array.from(existingBucketsMap.values());
+            } else {
+              facetItems.push({ ...facet });
+            }
+            return facetItems;
+          }, [] as Facet[]);
+        setFacets(sortFacets(combinedFacets));
+        handleCategoryNames(combinedFacets);
       } else {
         setItems(data?.productSearch?.items || []);
+        setFacets(sortFacets(data?.productSearch?.facets || []));
+        handleCategoryNames(data?.productSearch?.facets || []);
       }
 
-      setFacets(data?.productSearch?.facets || []);
       setTotalCount(data?.productSearch?.total_count || 0);
       setTotalPages(data?.productSearch?.page_info?.total_pages || 1);
-      handleCategoryNames(data?.productSearch?.facets || []);
 
       getPageSizeOptions(data?.productSearch?.total_count);
 

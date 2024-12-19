@@ -10,8 +10,9 @@ it.
 import { FunctionComponent } from 'preact';
 
 import useScalarFacet from '../../../hooks/useScalarFacet';
-import { Facet as FacetType, PriceFacet } from '../../../types/interface';
+import {CategoryView, Facet as FacetType, PriceFacet} from '../../../types/interface';
 import { InputButtonGroup } from '../../InputButtonGroup';
+import {useMemo} from 'preact/hooks';
 
 interface ScalarFacetProps {
   filterData: FacetType | PriceFacet;
@@ -22,11 +23,30 @@ export const ScalarFacet: FunctionComponent<ScalarFacetProps> = ({
 }) => {
   const { isSelected, onChange } = useScalarFacet(filterData);
 
+  const collapsedBuckets = useMemo(() => {
+    const bucketType = filterData?.buckets[0]?.__typename;
+    if (bucketType !== 'CategoryView') {
+      return filterData.buckets;
+    }
+    // reduce buckets that share the same name
+    const categoryBuckets = filterData.buckets as CategoryView[];
+    return categoryBuckets.reduce((acc, bucket) => {
+      const existingBucket = acc.find((b) => b.name === bucket.name);
+      if (existingBucket) {
+        existingBucket.count += bucket.count;
+        existingBucket.path = Array.isArray(existingBucket.path) ? [...existingBucket.path, bucket.path as string] : [existingBucket.path, bucket.path as string];
+        return acc;
+      }
+      return [...acc, bucket];
+
+    }, [] as CategoryView[]);
+  }, [filterData])
+
   return (
     <InputButtonGroup
       title={filterData.title}
       attribute={filterData.attribute}
-      buckets={filterData.buckets as any}
+      buckets={collapsedBuckets as any}
       type={'checkbox'}
       isSelected={isSelected}
       collapsible={true}
