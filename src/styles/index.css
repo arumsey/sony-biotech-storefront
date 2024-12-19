@@ -710,9 +710,6 @@ video {
   .h-sm {
     height: var(--spacing-sm);
   }
-  .max-h-\[250px\] {
-    max-height: 250px;
-  }
   .max-h-\[45rem\] {
     max-height: 45rem;
   }
@@ -1128,9 +1125,6 @@ video {
   }
   .pr-2 {
     padding-right: 0.5rem;
-  }
-  .pr-5 {
-    padding-right: 1.25rem;
   }
   .pr-lg {
     padding-right: var(--spacing-lg);

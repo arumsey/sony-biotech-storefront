@@ -22,6 +22,7 @@ module.exports = merge(commonConfig, {
     new HtmlWebpackPlugin({
       title: 'Sony Biotech Storefront',
       template: './dev-template.html',
+      scriptLoading: 'module',
     }),
     new webpack.HotModuleReplacementPlugin(),
     new ForkTsCheckerWebpackPlugin(),

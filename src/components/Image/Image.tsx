@@ -29,6 +29,12 @@ export const Image = ({
     }
   }, [entry, image, carouselIndex, index]);
 
+  const handleError = () => {
+    if (imageRef.current) {
+      imageRef.current.classList.add('invisible');
+    }
+  }
+
   return (
     <img
       className={`aspect-auto w-100 h-auto ${
@@ -38,6 +44,7 @@ export const Image = ({
       src={imageUrl}
       data-src={typeof image === 'object' ? image.src : image}
       srcset={typeof image === 'object' ? image.srcset : null}
+      onError={handleError}
       alt={alt}
       width={size}
       height={size}

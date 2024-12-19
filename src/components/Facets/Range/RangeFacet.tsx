@@ -30,7 +30,7 @@ export const RangeFacet: FunctionComponent<RangeFacetProps> = ({
       type={'radio'}
       isSelected={isSelected}
       onChange={(e) => {
-        onChange(e.value);
+        onChange(typeof e.value === 'string' ? e.value : e.value[0]);
       }}
     />
   );

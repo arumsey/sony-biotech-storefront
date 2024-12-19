@@ -18,9 +18,10 @@ import { BOOLEAN_NO, BOOLEAN_YES } from '../../utils/constants';
 import { LabelledInput } from '../LabelledInput';
 import { JSXInternal } from "preact/src/jsx";
 import TargetedMouseEvent = JSXInternal.TargetedMouseEvent;
+import {useMemo} from 'preact/hooks';
 
 export type InputButtonGroupOnChangeProps = {
-  value: string;
+  value: string | string[];
   selected?: boolean;
 };
 
@@ -37,6 +38,7 @@ export type Bucket = {
   to?: number;
   from?: number;
   name?: string;
+  path?: string | string[];
   __typename: 'ScalarBucket' | 'RangeBucket' | 'CategoryView';
 };
 
@@ -44,7 +46,7 @@ export interface InputButtonGroupProps {
   title: string;
   attribute: string;
   buckets: Bucket[];
-  isSelected: (title: string) => boolean | undefined;
+  isSelected: (value: string) => boolean | undefined;
   onChange: InputButtonGroupOnChange;
   type: 'radio' | 'checkbox';
   inputGroupTitleSlot?: InputButtonGroupTitleSlot;
@@ -66,15 +68,19 @@ export const InputButtonGroup: FunctionComponent<InputButtonGroupProps> = ({
   const translation = useTranslation();
   const productsCtx = useProducts();
 
+  const filteredBuckets = useMemo(() => {
+    return buckets.filter((bucket) => Number(bucket.title || 0) !== 0);
+  }, [buckets]);
+
   const [showMore, setShowMore] = useState(
-    buckets.length < numberOfOptionsShown || collapsible
+    filteredBuckets.length < numberOfOptionsShown || collapsible
   );
 
-  const numberOfOptions = showMore ? buckets.length : numberOfOptionsShown;
+  const numberOfOptions = showMore ? filteredBuckets.length : numberOfOptionsShown;
 
-  const onInputChange = (title: string, e: ChangeEvent<HTMLInputElement>) => {
+  const onInputChange = (value: string | string[], e: ChangeEvent<HTMLInputElement>) => {
     onChange({
-      value: title,
+      value,
       selected: (e?.target as HTMLInputElement)?.checked,
     });
   };
@@ -152,7 +158,7 @@ export const InputButtonGroup: FunctionComponent<InputButtonGroupProps> = ({
       )}
       <fieldset className="ds-sdk-input__options mt-md collapsed" role="tabpanel" aria-hidden="true">
         <div className="space-y-4">
-          {buckets.slice(0, numberOfOptions).map((option) => {
+          {filteredBuckets.slice(0, numberOfOptions).map((option) => {
             const checked = isSelected(option.title);
             const noShowPriceBucketCount = option.__typename === 'RangeBucket';
             return (
@@ -165,13 +171,13 @@ export const InputButtonGroup: FunctionComponent<InputButtonGroupProps> = ({
                 value={option.title}
                 count={noShowPriceBucketCount ? null : option.count}
                 onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                  onInputChange(option.title, e)
+                  onInputChange(option.path || option.title, e)
                 }
                 type={type}
               />
             );
           })}
-          {!showMore && buckets.length > numberOfOptionsShown && (
+          {!showMore && filteredBuckets.length > numberOfOptionsShown && (
             <div
               className="ds-sdk-input__fieldset__show-more flex items-center text-gray-700 cursor-pointer"
               onClick={() => setShowMore(true)}
