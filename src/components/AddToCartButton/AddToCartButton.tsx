@@ -30,7 +30,7 @@ export const AddToCartButton: FunctionComponent<AddToCartButtonProps> = ({
   const popoverRef = useRef<HTMLDivElement>(null);
 
   const handleClick = (wishlist?: string) => {
-    if (variant === 'list' && popoverData.length > 1) {
+    if (variant === 'list' && popoverData.length > 0) {
       if (isPopoverOpen) {
         onClick(wishlist);
       }

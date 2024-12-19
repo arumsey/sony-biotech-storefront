@@ -258,7 +258,8 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
               {accountType === 'shopping' && (<AddToCartButton
                 variant="list"
                 popoverData={wishlists}
-                onClick={(id) => handleAddToCart(['list', id || ''])} />)}
+                onClick={(id) => handleAddToCart(['list', id || ''])}
+                openCreateListPopup={openCreateListPopup} />)}
               {accountType === 'purchasing' && (
                 <>
                   {displayPricing && (<AddToCartButton variant="cart" onClick={() => handleAddToCart()} />)}
