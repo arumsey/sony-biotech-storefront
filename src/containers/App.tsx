@@ -44,12 +44,16 @@ export const App: FunctionComponent = () => {
 
   const loadingLabel = translation.Loading.title;
 
+
   const renderFilterView = !screenSize.mobile && showFilters && productsCtx.facets.length > 0;
   const filterButtonTitle = translation.Filter.showTitle;
 
   if (displayMode === 'PAGE') {
     return <></>;
   }
+
+  console.log(`render filter view:${showFilters}`);
+
 
   return (
     <div className="ds-widgets bg-body py-2">
@@ -120,7 +124,7 @@ export const App: FunctionComponent = () => {
               <ProductsContainer
                 showFilters={showFilters && productsCtx.facets.length > 0}
               />
-              {showFilters && (
+              {showFilters && productsCtx.facets.length > 0 && (
                 <div class="fullscreen absolute w-screen h-screen bg-white">
                   <div class="flex flex-row justify-end items-center h-[48px] p-sm">
                     <button
