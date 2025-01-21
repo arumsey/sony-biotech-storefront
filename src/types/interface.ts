@@ -29,7 +29,6 @@ export interface ClientProps {
 }
 
 export interface StoreDetailsConfig {
-  isAuthenticated?: boolean;
   searchQuery?: string; // 'q' default search query param if not provided.
   allowAllProducts?: string | boolean;
   perPageConfig?: { pageSizeOptions?: string; defaultPageSizeOption?: string };
@@ -45,6 +44,7 @@ export interface StoreDetailsConfig {
   displaySearchBox?: boolean;
   displayOutOfStock?: string | boolean; // "1" will return from php escapeJs and boolean is returned if called from data-service-graphql
   displayPricing?: boolean;
+  displayDiscount?: boolean;
   displayMode?: string;
   listView?: boolean;
   locale?: string;

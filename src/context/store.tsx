@@ -21,7 +21,6 @@ interface StoreProps extends WithChildrenProps {
   storeViewCode: string;
   config: StoreDetailsConfig;
   context?: QueryContextInput;
-  isAuthenticated?: boolean;
   apiUrl: string;
   apiKey: string;
   commerceUrl: string;
