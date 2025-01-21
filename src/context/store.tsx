@@ -7,14 +7,11 @@ accordance with the terms of the Adobe license agreement accompanying
 it.
 */
 
-import { createContext } from 'preact';
-import { useContext, useMemo } from 'preact/hooks';
+import {createContext} from 'preact';
+import {useContext, useMemo} from 'preact/hooks';
 
-import {
-  QueryContextInput,
-  StoreDetailsConfig,
-} from '../types/interface';
-import { WithChildrenProps } from "../types/utils";
+import {QueryContextInput, StoreDetailsConfig,} from '../types/interface';
+import {WithChildrenProps} from "../types/utils";
 
 interface StoreProps extends WithChildrenProps {
   environmentId: string;
@@ -24,6 +21,7 @@ interface StoreProps extends WithChildrenProps {
   storeViewCode: string;
   config: StoreDetailsConfig;
   context?: QueryContextInput;
+  isAuthenticated?: boolean;
   apiUrl: string;
   apiKey: string;
   commerceUrl: string;
@@ -53,7 +51,6 @@ const StoreContextProvider = ({
 
   const cleanedStoreProps: StoreProps = useMemo(
     () => {
-
       const {
         environmentId,
         environmentType,

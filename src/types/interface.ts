@@ -29,6 +29,7 @@ export interface ClientProps {
 }
 
 export interface StoreDetailsConfig {
+  isAuthenticated?: boolean;
   searchQuery?: string; // 'q' default search query param if not provided.
   allowAllProducts?: string | boolean;
   perPageConfig?: { pageSizeOptions?: string; defaultPageSizeOption?: string };
