@@ -13,6 +13,7 @@ import { useContext } from 'preact/hooks';
 import { TranslationContext } from '../../context/translation';
 import { Product, RefinedProduct } from '../../types/interface';
 import { getProductPrice } from '../../utils/getProductPrice';
+import {useStore} from "../../context";
 
 export interface ProductPriceProps {
   isComplexProductView: boolean;
@@ -38,6 +39,7 @@ export const ProductPrice: FunctionComponent<ProductPriceProps> = ({
   currencyRate,
 }: ProductPriceProps) => {
   const translation = useContext(TranslationContext);
+  const { config } = useStore();
   let price;
 
   if ('product' in item) {
@@ -93,7 +95,7 @@ export const ProductPrice: FunctionComponent<ProductPriceProps> = ({
   const getDiscountedPrice = (discount: boolean | undefined, configurable: boolean) => {
     const regularPrice = getProductPrice(item, currencySymbol, currencyRate, false, false);
     const finalPrice = getProductPrice(item, currencySymbol, currencyRate, false, true);
-    const showDiscount = discount && regularPrice !== finalPrice;
+    const showDiscount = discount && config.displayDiscount && regularPrice !== finalPrice;
     const discountPrice = showDiscount ? (
       <div className="flex flex-col gap-1">
         <span className="line-through pr-2">
